@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
-public class ProdutoController {
+public class    ProdutoController {
     private List<Produto> produtos = new ArrayList<>();
     private long proximoId = 1;
 
@@ -36,6 +36,16 @@ public class ProdutoController {
             if (produto.getId().equals(id)) {
                 produto.setQtdDisponivel(produtoAtualizado.getQtdDisponivel());
                 return produto;
+            }
+        }
+        return null;
+    }
+
+    @GetMapping("/{id}/produtos")
+    public Integer verificarQuantidade(@PathVariable("id") Long id) {
+        for (Produto produto : produtos) {
+            if (produto.getId().equals(id)) {
+                return produto.getQtdDisponivel();
             }
         }
         return null;
