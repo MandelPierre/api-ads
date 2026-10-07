@@ -28,6 +28,17 @@
         @PostMapping
         public Pedido criarPedido(@RequestBody Pedido pedido) {
             ProdutoResposta produto = buscarProduto(pedido.getProdutoId());
+            if (produto == null) {
+                pedido.setStatus("PRODUTO_NAO_ENCONTRADO");
+                return pedido;
+            }
+            if (produto.getQtdDisponivel() < pedido.getQuantidade()) {
+                pedido.setStatus("SEM_ESTOQUE");
+                return pedido;
+            }
+
+            int novoEstoque = produto.getQtdDisponivel() - pedido.getQuantidade();
+            produto.setQtdDisponivel(novoEstoque);
 
             return null;
         }
