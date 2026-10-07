@@ -41,7 +41,7 @@ public class    ProdutoController {
         return null;
     }
 
-    @GetMapping("/{id}/produtos")
+    @GetMapping("/{id}/quantidade")
     public Integer verificarQuantidade(@PathVariable("id") Long id) {
         for (Produto produto : produtos) {
             if (produto.getId().equals(id)) {
