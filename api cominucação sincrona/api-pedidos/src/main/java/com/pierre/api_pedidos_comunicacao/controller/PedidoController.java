@@ -2,10 +2,7 @@
 
     import com.pierre.api_pedidos_comunicacao.model.Pedido;
     import com.pierre.api_pedidos_comunicacao.model.ProdutoResposta;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.bind.annotation.*;
     import org.springframework.web.client.RestClient;
 
     import java.util.ArrayList;
@@ -40,7 +37,17 @@
             int novoEstoque = produto.getQtdDisponivel() - pedido.getQuantidade();
             produto.setQtdDisponivel(novoEstoque);
 
+            atualizarEstoque(produto);
+
             return null;
+        }
+
+        private void atualizarEstoque(ProdutoResposta produto) {
+            clienteProdutos.put()
+                    .uri("/produtos/{id}", produto.getId())
+                    .body(produto)
+                    .retrieve()
+                    .toBodilessEntity();
         }
 
     }
